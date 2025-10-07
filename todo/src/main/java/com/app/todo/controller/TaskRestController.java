@@ -1,30 +1,22 @@
 package com.app.todo.controller;
-
-
 import com.app.todo.models.TaskEntities;
 import com.app.todo.services.TaskService;
-
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/tasks")
-public class TaskController {
+public class TaskRestController {
 
     private final TaskService taskService;
 
 
-    public TaskController(TaskService taskService) {
+    public TaskRestController(TaskService taskService) {
         this.taskService = taskService;
     }
 
     @GetMapping
-    //@RequestMapping("/tasks")
-    public List<TaskEntities>getTasks(){
+    public List<TaskEntities> getTasks(){
         return taskService.getAllTasks();
     }
 }
