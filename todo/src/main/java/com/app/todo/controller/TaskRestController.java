@@ -2,6 +2,7 @@ package com.app.todo.controller;
 import com.app.todo.models.TaskEntities;
 import com.app.todo.services.TaskService;
 import org.aspectj.lang.annotation.DeclareWarning;
+
 import org.springframework.web.bind.annotation.*;
 
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TaskRestController {
 
     private final TaskService taskService;
@@ -39,11 +41,11 @@ public class TaskRestController {
         return taskService.updateTask(id, task);
     }
 
-    @DeleteMapping("/{id}")
-    public void delteTask(@PathVariable Long id, @RequestBody TaskEntities task){
-        taskService.updateTask(id, task);
-    }
 
+    @DeleteMapping("/{id}")
+    public void deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+    }
 
 
 

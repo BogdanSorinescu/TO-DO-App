@@ -1,11 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
-import './TaskList.scss'; // ✅ Import your SCSS file
+import './TaskList.scss'; // Import SCSS file
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
-  // Fetch tasks from backend
+  // Fetch tasks on load
   useEffect(() => {
     fetch('http://localhost:8080/api/tasks')
       .then(response => response.json())
@@ -13,9 +14,9 @@ function TaskList() {
       .catch(error => console.error('Could not fetch tasks:', error));
   }, []);
 
-  // Add task
+  
   const handleAddTask = () => {
-    if (newTask.trim() === '') return;
+    if (newTask.trim() === '') return; // prevent empty tasks
 
     const taskData = { title: newTask, completed: false };
 
@@ -24,26 +25,29 @@ function TaskList() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(taskData),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to add task');
+        }
+        return response.json();
+      })
       .then(savedTask => {
         setTasks([...tasks, savedTask]);
-        setNewTask('');
+        setNewTask(''); // clear input
       })
       .catch(error => console.error('Error adding task:', error));
   };
 
-  // Delete task
+  // ✅ Delete task
   const handleDelete = (id) => {
-    fetch(`http://localhost:8080/api/tasks/${id}`, {
-      method: 'DELETE',
-    })
+    fetch(`http://localhost:8080/api/tasks/${id}`, { method: 'DELETE' })
       .then(() => {
         setTasks(tasks.filter(task => task.id !== id));
       })
       .catch(error => console.error('Error deleting task:', error));
   };
 
-  // Toggle completion
+  // ✅ Toggle completion
   const toggleComplete = (task) => {
     const updatedTask = { ...task, completed: !task.completed };
 
