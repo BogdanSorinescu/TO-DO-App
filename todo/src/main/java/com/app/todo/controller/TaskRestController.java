@@ -48,7 +48,16 @@ public class TaskRestController {
     }
 
 
+    @PatchMapping("/{id}")
+    public TaskEntities editTask(@PathVariable Long id, @RequestBody TaskEntities partialTask){
+        TaskEntities existingTask = taskService.getTaskById(id);
 
+        if (partialTask.getTitle() != null){
+            existingTask.setTitle(partialTask.getTitle());
+        }
+        return taskService.updateTask(id, existingTask);
+
+    }
 
 
 }
