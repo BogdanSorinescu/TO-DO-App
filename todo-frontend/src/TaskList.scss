@@ -85,6 +85,37 @@
           background-color: #a71d2a;
         }
       }
+
+      >.delete-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 6px 10px;
+        cursor: pointer;
+        margin-left: 6px;
+        transition: 0.2s ease;
+
+        &:hover {
+          background-color: #a71d2a;
+        }
+      }
+
+      /* Edit button */
+      >.edit-button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 6px 10px;
+        cursor: pointer;
+        margin-left: 6px;
+        transition: 0.2s ease;
+
+        &:hover {
+          background-color: #1e7e34;
+        }
+      }
     }
   }
 }

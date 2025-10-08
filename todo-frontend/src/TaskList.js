@@ -63,6 +63,28 @@ function TaskList() {
             .catch(error => console.error('Error updating task:', error));
     };
 
+    const handleEdit = (task) => {
+        const updateTitle = window.prompt("Edit Task: ", task.title);
+        if (updateTitle == null || updateTitle.trim() === '') return;
+
+        const updatedTask = { ...task, title: updateTitle };
+
+        fetch(`http://localhost:8080/api/tasks/${task.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedTask),
+        })
+            .then(response => response.json())
+            .then(data => {
+                setTasks(tasks.map(t => (t.id === data.id ? data : t)));
+            })
+            .catch(error => console.error('Error updating task:', error));
+    };
+
+    
+
+
+
     return (
         <div className="task-container">
             <h1>📝 To-Do List</h1>
@@ -83,7 +105,8 @@ function TaskList() {
                         <span onClick={() => toggleComplete(task)}>
                             {task.title}
                         </span>
-                        <button onClick={() => handleDelete(task.id)}>Delete</button>
+                        <button className= "delete-btn" onClick={() => handleDelete(task.id)}>Delete</button>
+                        <button className= "edit-button" onClick={() => handleEdit(task)}>Edit</button>
                     </li>
                 ))}
             </ul>
