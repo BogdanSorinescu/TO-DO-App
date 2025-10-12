@@ -82,6 +82,20 @@ function TaskList() {
     };
 
 
+    const clearCompletedTasks = () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete all completed tasks?")
+        if (!confirmDelete) return;
+
+        fetch('http://localhost:8080/api/tasks/completed', { method: 'DELETE' })
+            .then(() => {
+                setTasks(tasks.filter(task => !task.completed));
+            })
+            .catch(error => console.error('Error deleting completed tasks:', error));
+    };
+
+    const hasCompletedTasks = tasks.some(task => task.completed);
+
+
 
 
 
@@ -106,21 +120,45 @@ function TaskList() {
                             {task.title}
                         </span>
 
-                        {!task.completed && (<button
-                            className='complete-btn'
-                            onClick={() => toggleComplete(task)}
-                            title="Mark as completed"
-                        >
-                            <i className='fas fa-check'></i>
-                        </button>)}
-                        <button className="delete-btn" onClick={() => handleDelete(task.id)}>Delete</button>
-                        <button className="edit-button" onClick={() => handleEdit(task)} title='Edit task'>
-                            <i className='fas fa-pen'></i>
-                        </button>
+                        {!task.completed && (
+                            <>
+                                <button
+                                    className="complete-btn"
+                                    onClick={() => toggleComplete(task)}
+                                    title="Mark as completed"
+                                >
+                                    <i className="fas fa-check"></i>
+                                </button>
 
+                                <button
+                                    className="edit-button"
+                                    onClick={() => handleEdit(task)}
+                                    title="Edit task"
+                                >
+                                    <i className="fas fa-pen"></i>
+                                </button>
+
+                                <button
+                                    className="delete-btn"
+                                    onClick={() => handleDelete(task.id)}
+                                    title="Delete task"
+                                >
+                                    Delete
+                                </button>
+                            </>
+                        )}
                     </li>
                 ))}
             </ul>
+            {hasCompletedTasks && (
+                <button
+                    className="clear-btn"
+                    onClick={clearCompletedTasks}
+                >
+                    Clear Completed Tasks
+                </button>
+            )}
+
         </div>
     );
 }
