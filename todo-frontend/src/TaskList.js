@@ -1,4 +1,4 @@
-
+import '@fortawesome/fontawesome-free/css/all.css';
 import React, { useState, useEffect } from 'react';
 import './TaskList.scss'; // Import SCSS file
 
@@ -81,7 +81,7 @@ function TaskList() {
             .catch(error => console.error('Error updating task:', error));
     };
 
-    
+
 
 
 
@@ -102,11 +102,22 @@ function TaskList() {
             <ul className="task-list">
                 {tasks.map(task => (
                     <li key={task.id} className={task.completed ? 'completed' : ''}>
-                        <span onClick={() => toggleComplete(task)}>
+                        <span>
                             {task.title}
                         </span>
-                        <button className= "delete-btn" onClick={() => handleDelete(task.id)}>Delete</button>
-                        <button className= "edit-button" onClick={() => handleEdit(task)}>Edit</button>
+
+                        {!task.completed && (<button
+                            className='complete-btn'
+                            onClick={() => toggleComplete(task)}
+                            title="Mark as completed"
+                        >
+                            <i className='fas fa-check'></i>
+                        </button>)}
+                        <button className="delete-btn" onClick={() => handleDelete(task.id)}>Delete</button>
+                        <button className="edit-button" onClick={() => handleEdit(task)} title='Edit task'>
+                            <i className='fas fa-pen'></i>
+                        </button>
+
                     </li>
                 ))}
             </ul>

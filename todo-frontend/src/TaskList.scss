@@ -69,22 +69,49 @@
 
       span {
         flex: 1;
-        cursor: pointer;
         text-align: left;
+        word-break: break-word;
       }
 
-      button {
-        background-color: #dc3545;
+
+      >.complete-btn {
+        background-color: #28a745;
         color: white;
         border: none;
         border-radius: 8px;
         padding: 6px 10px;
         cursor: pointer;
+        margin-left: 6px;
+        transition: 0.2s ease;
 
         &:hover {
-          background-color: #a71d2a;
+          background-color: #1e7e34;
+        }
+
+        i {
+          font-size: 1rem;
         }
       }
+
+      >.edit-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 6px 10px;
+        cursor: pointer;
+        margin-left: 6px;
+        transition: 0.2s ease;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+
+        i {
+          font-size: 1rem;
+        }
+      }
+
 
       >.delete-btn {
         background-color: #dc3545;
@@ -99,23 +126,25 @@
         &:hover {
           background-color: #a71d2a;
         }
-      }
 
-      /* Edit button */
-      >.edit-button {
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 6px 10px;
-        cursor: pointer;
-        margin-left: 6px;
-        transition: 0.2s ease;
-
-        &:hover {
-          background-color: #1e7e34;
+        i {
+          font-size: 1rem;
         }
       }
+    }
+  }
+
+  .completed {
+    animation: fadeTask 0.3s ease-in-out;
+  }
+
+  @keyframes fadeTask {
+    from {
+      opacity: 0.6;
+    }
+
+    to {
+      opacity: 1;
     }
   }
 }
