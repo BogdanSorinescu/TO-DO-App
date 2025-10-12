@@ -59,5 +59,10 @@ public class TaskRestController {
 
     }
 
+    @DeleteMapping("/completed")
+    public void clearCompletedTasks() {
+        taskService.clearCompletedTasks();
+
+    }
 
 }

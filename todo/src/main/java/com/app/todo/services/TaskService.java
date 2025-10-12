@@ -2,6 +2,7 @@ package com.app.todo.services;
 
 import com.app.todo.models.TaskEntities;
 import com.app.todo.repo.TaskRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,10 @@ public class TaskService {
 
     public TaskEntities getTaskById(Long id){
         return taskRepository.findById(id).orElseThrow(()->new RuntimeException("Task not found with id: " + id));
+    }
+
+    @Transactional
+    public void clearCompletedTasks(){
+        taskRepository.deleteByCompletedTrue();
     }
 }
